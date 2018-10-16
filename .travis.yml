@@ -27,7 +27,7 @@ deploy:
   user: spotifysecurity
   password:
     secure: "WwkEkGgREpJKBD3JEIFQUPlns+0K5Mirt/wiRKxUKM9DtFs8bNRvAhcTBJMQRLX0NG7qSl99/L3lQyyi5ql+Iwqelhkq8xo+l3Ln/elaIx+qO6TAE0f81GXOuFYapRVQYshZk1IcVY2ac5gdQq2besvvA5JLm2EAsMWZupvIkj38IPhME/lcBCBXWhfBFCKeeAi8hLyO9UOPOz30ui8e2iuJCOwpxYTuj3P4/OWvC2Ogbjo4ewej4RIByIxCW2bpQw6s1m+fbkRVNFuB+GDo1OYOwJtCr5rgG7t6yZ/YLH9r58BbtQHXL1N8TA6+Ipw75t58lKvofVOOGQcnCcajBLZyaD0vANeYwXFoDf5ZtYaUq2Kj6MAARwFoNCzItsW5B8GVBzrQRBLZRBDxoq6c91pL4ZSE09lqTOvPP0PNQJoZM32W1hcJe/E4ZDPMmehdcxuJWOmCWN9IApftBDyCSQU3FsOBQ9evj+h9nrYhKE2R75r0aGprpzW4m/XfC0i4+gV2+OcIzrOmjic02IJijedsr52ne8QkPwCQoeSYEXPPRRZL5VfzG36jfiSrGkjjQBslfS6KWyimMH51Jab3qPxDjRzbqfbJfiiGzSUZ08p55PeJOo2GDJj1CFMsmTf0HyewCVmrPKniENlhvywyJenrlZNxmPsvsf10qQP+Jow="
-on:
+  on:
     tags: true
     branch: master
     condition: $TOXENV = py36
