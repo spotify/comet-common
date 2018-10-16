@@ -21,7 +21,7 @@ matrix:
 script:
 - tox
 
-# deploy 
+# deploy to pypi
 deploy:
   provider: pypi
   user: spotifysecurity
