@@ -18,7 +18,7 @@ import setuptools
 __location__ = os.path.realpath(os.path.dirname(__file__))
 
 with open(os.path.join(__location__, 'requirements.txt')) as f:
-    requirements = [ l for l in f.read().splitlines() if not l.startswith('--i')]
+    requirements = [l for l in f.read().splitlines() if not l.startswith('--i')]
 
 setuptools.setup(
     name="comet-common",
