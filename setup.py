@@ -22,7 +22,7 @@ with open(os.path.join(__location__, 'requirements.txt')) as f:
 
 setuptools.setup(
     name="comet-common",
-    version="1.0.5",
+    version="1.0.4",
     url="https://github.com/spotify/comet-common",
 
     author="Spotify Platform Security",
