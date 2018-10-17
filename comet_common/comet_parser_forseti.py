@@ -48,9 +48,18 @@ class ForsetiSchema(Schema):
         Args:
             data (dict): the data object
         Raises:
-            ValidationError: if the violation_data has insufficient fields for the resource.
+            ValidationError: if the violation_data has insufficient fields for the resource,
+                             or resource_type or resource are not provided
         """
+
+        if 'resource' not in data.keys():
+            raise ValidationError('Forseti requires resource field', ['resource'])
+
+        if 'resource_type' not in data.keys():
+            raise ValidationError('Forseti requires resource_type field', ['resource_type'])
+
         resource = data['resource']
+
         for field in SUPPORTED_RESOURCE.get(resource):
             if field not in data['violation_data']:
                 raise ValidationError(f'{resource} resource requires member field {field} in violation_data',
