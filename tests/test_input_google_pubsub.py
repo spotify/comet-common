@@ -19,6 +19,7 @@ import pytest
 
 from comet_common.comet_input_google_pubsub import PubSubInput
 
+
 def test_input_google_pubsub_passingok():
     """PubSubInput"""
     with patch("comet_common.comet_input_google_pubsub.pubsub.SubscriberClient") as mockpubsub:
@@ -27,9 +28,10 @@ def test_input_google_pubsub_passingok():
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
         message.attributes.get.return_value = 'test_type'
-        
         message.data.decode.return_value = '{}'
+
         pubsubinput.callback(message)
+
         message.ack.assert_called_once()
         message_callback.assert_called_once()
 
@@ -43,10 +45,11 @@ def test_input_google_pubsub_failingtodecode():
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
         message.attributes.get.return_value = 'test_type'
-
         message.data.decode.side_effect = Exception("Mock Exception")
+
         with pytest.raises(Exception) as excinfo:
             pubsubinput.callback(message)
+
         assert excinfo.value.args[0] == 'Mock Exception'
         message.nack.assert_called_once()
 
@@ -59,10 +62,12 @@ def test_input_google_pubsub_nocallback():
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
         message.attributes.get.return_value = 'test_type'
-
         message.data.decode.side_effect = '{}'
+
         pubsubinput.callback(message)
+
         message.nack.assert_called_once()
+
 
 def test_input_google_pubsub_stop():
     with patch("comet_common.comet_input_google_pubsub.pubsub.SubscriberClient") as mockpubsub:
@@ -70,7 +75,7 @@ def test_input_google_pubsub_stop():
         message_callback = Mock(return_value=False)
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         pubsubinput.consumer = Mock()
+
         pubsubinput.stop()
+
         pubsubinput.consumer.cancel.assert_called_once()
-
-
