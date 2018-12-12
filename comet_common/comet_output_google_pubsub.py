@@ -37,7 +37,9 @@ class PubSubOutput:
         publish message to the output defined topic
         Args:
             message (dict): message dict
-            source_type(str): source type of the message
+            source_type (str): source type of the message
+        Raises:
+            TypeError: if the message could not be published due to encoding issues
         """
         try:
             message_bytes = self._encode_message(message)
@@ -46,12 +48,10 @@ class PubSubOutput:
                                    source_type=source_type)
             LOG.debug(f'Publish pubsub message.',
                       extra={'source_type': source_type})
-            return
-        except Exception as _:
+        except TypeError as _:
             LOG.exception('Message processing error')
             LOG.warning(f'Failed publish message: {message} to',
                         extra={'source_type': source_type})
-            raise _
 
     @staticmethod
     def _encode_message(message):
@@ -59,6 +59,8 @@ class PubSubOutput:
         Encode message from dict to bytes.
         Args:
             message (dict): message dict
+        Returns:
+            bytes: the encoded message
         """
         message_str = json.dumps(message)
         message_bytes = message_str.encode("utf-8")
