@@ -59,6 +59,8 @@ class PubSubOutput:
         Encode message from dict to bytes.
         Args:
             message (dict): message dict
+        Returns:
+            bytes: the encoded message
         """
         message_str = json.dumps(message)
         message_bytes = message_str.encode("utf-8")
