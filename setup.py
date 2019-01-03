@@ -20,6 +20,9 @@ __location__ = os.path.realpath(os.path.dirname(__file__))
 with open(os.path.join(__location__, 'requirements.txt')) as f:
     requirements = [l for l in f.read().splitlines() if not l.startswith('--i')]
 
+git_requirements = [r[3:] for r in requirements if r.startswith('-e')]
+requirements = [r for r in requirements if not r.startswith('-e')]
+
 setuptools.setup(
     name="comet-common",
     version="1.0.5",
@@ -29,11 +32,12 @@ setuptools.setup(
     author_email="wasabi@spotify.com",
 
     description="Comet Distributed Security Notification Framework",
-    long_description=open('README.md').read(),
+    long_description=open('README.md', 'r+', encoding='utf-8').read(),
 
     packages=['comet_common'],
 
     install_requires=requirements,
+    dependency_links=git_requirements,
 
     include_package_data=True,
 
