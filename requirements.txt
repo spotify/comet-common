@@ -8,7 +8,7 @@ googleapis-common-protos==1.5.3
 grpc-google-iam-v1==0.11.4
 grpcio==1.9.1
 idna==2.7
-marshmallow==2.15.1
+marshmallow==2.17.0
 protobuf==3.5.1
 psutil==5.4.6
 pyasn1==0.4.4
@@ -18,4 +18,4 @@ requests==2.20.0
 rsa==4.0.0
 six==1.12.0
 urllib3==1.23
-comet-core==1.0.7
+comet-core==1.0.8
