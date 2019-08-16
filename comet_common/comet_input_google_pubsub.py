@@ -17,6 +17,7 @@ import logging
 
 from google.cloud import pubsub
 from comet_core.plugin_interface import CometInput
+from comet_common.comet_exceptions import CometAlertException
 
 LOG = logging.getLogger(__name__)
 
@@ -41,6 +42,7 @@ class PubSubInput(CometInput):
         Args:
             message (google.cloud.pubsub_v1.subscriber.message.Message): message object
         Raises:
+            CometAlertException: re-raised if retry is True
             Exception: if smth happens (sorry)
         """
         try:
@@ -51,8 +53,13 @@ class PubSubInput(CometInput):
                 LOG.debug(f'Acknowledge pubsub message.', extra={'source_type': source_type})
                 message.ack()
                 return
+        except CometAlertException as e:
+            if e.drop:
+                LOG.warning('Dropping invalid pubsub message', extra={'source_type': source_type, 'message_data': data})
+                message.ack()
+                return
         except Exception as _:
-            LOG.exception('Message processing error')
+            LOG.error('Message processing error')
             LOG.warning(f'Refused (nacked) pubsub message.', extra={'source_type': source_type})
             message.nack()
             raise
