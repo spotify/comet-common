@@ -17,12 +17,6 @@ import setuptools
 
 __location__ = os.path.realpath(os.path.dirname(__file__))
 
-with open(os.path.join(__location__, 'requirements.txt')) as f:
-    requirements = [l for l in f.read().splitlines() if not l.startswith('--i')]
-
-git_requirements = [r[3:] for r in requirements if r.startswith('-e')]
-requirements = [r for r in requirements if not r.startswith('-e')]
-
 setuptools.setup(
     name="comet-common",
     version="2.0.4",
@@ -36,8 +30,11 @@ setuptools.setup(
 
     packages=['comet_common'],
 
-    install_requires=requirements,
-    dependency_links=git_requirements,
+    install_requires=[
+        'comet-core~=2.0.1',
+        'google-cloud-pubsub~=0.37.2',
+        'marshmallow~=2.17.0'
+    ],
 
     include_package_data=True,
 
