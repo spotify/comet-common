@@ -15,8 +15,6 @@
 import os
 import setuptools
 
-__location__ = os.path.realpath(os.path.dirname(__file__))
-
 setuptools.setup(
     name="comet-common",
     version="2.0.4",
@@ -31,7 +29,7 @@ setuptools.setup(
     packages=['comet_common'],
 
     install_requires=[
-        'comet-core~=2.0.1',
+        'comet-core~=2.0.0',
         'google-cloud-pubsub~=0.37.2',
         'marshmallow~=2.17.0'
     ],
