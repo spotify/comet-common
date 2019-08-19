@@ -25,7 +25,7 @@ requirements = [r for r in requirements if not r.startswith('-e')]
 
 setuptools.setup(
     name="comet-common",
-    version="1.0.9",
+    version="2.0.3",
     url="https://github.com/spotify/comet-common",
 
     author="Spotify Platform Security",
