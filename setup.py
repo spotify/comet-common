@@ -29,9 +29,9 @@ setuptools.setup(
     packages=['comet_common'],
 
     install_requires=[
-        'comet-core~=2.0.0',
-        'google-cloud-pubsub~=0.37.2',
-        'marshmallow~=2.17.0'
+        'comet-core~=2.0',
+        'google-cloud-pubsub~=0.37',
+        'marshmallow~=2.17'
     ],
 
     include_package_data=True,
