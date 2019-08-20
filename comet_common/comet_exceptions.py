@@ -3,7 +3,6 @@
 
 class CometBaseException(Exception):
     """Base Class for Comet Exceptions."""
-    pass
 
 
 class CometAlertException(CometBaseException):

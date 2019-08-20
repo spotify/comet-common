@@ -47,12 +47,12 @@ class PubSubInput(CometInput):
         """
         try:
             source_type = message.attributes.get('source_type', None)
-            LOG.debug(f'Received pubsub message.', extra={'source_type': source_type,
-                                                          'msg_received': message})
+            LOG.debug('Received pubsub message.', extra={'source_type': source_type,
+                                                         'msg_received': message})
             data = message.data.decode()
             if self.message_callback(source_type, data):
-                LOG.debug(f'Acknowledge pubsub message.', extra={'source_type': source_type,
-                                                                 'msg_acked': message})
+                LOG.debug('Acknowledge pubsub message.', extra={'source_type': source_type,
+                                                                'msg_acked': message})
                 message.ack()
                 return
         except CometAlertException as e:
@@ -63,12 +63,12 @@ class PubSubInput(CometInput):
                 return
         except Exception as _:
             LOG.error('Message processing error')
-            LOG.warning(f'Refused (nacked) pubsub message.', extra={'source_type': source_type,
-                                                                    'msg_nacked': message})
+            LOG.warning('Refused (nacked) pubsub message.', extra={'source_type': source_type,
+                                                                   'msg_nacked': message})
             message.nack()
             raise
-        LOG.warning(f'Refused (nacked) pubsub message.', extra={'source_type': source_type,
-                                                                'msg_nacked': message})
+        LOG.warning('Refused (nacked) pubsub message.', extra={'source_type': source_type,
+                                                               'msg_nacked': message})
         message.nack()
 
     def stop(self):
