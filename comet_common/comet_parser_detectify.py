@@ -31,6 +31,7 @@ class DetectifyPayloadSchema(Schema):
     Args:
         Schema (marshmallow.Schema): schema
     """
+
     signature = fields.Str(required=True)
     url = fields.Str(required=True)
     title = fields.Str(required=True)
@@ -41,6 +42,7 @@ class DetectifyPayloadSchema(Schema):
 
 class DetectifySchema(Schema):
     """Schema for Detectify"""
+
     scan_token = fields.Str(required=True)
     profile_token = fields.Str(required=True)
     domain = fields.Str(required=True)

@@ -16,24 +16,20 @@
 
 from marshmallow import fields, Schema, validate, validates_schema, ValidationError
 
-SUPPORTED_RESOURCE_TYPES = [
-    'bucket',
-    'project',
-    'cloudsql',
-    'bigquery_dataset'
-]
+SUPPORTED_RESOURCE_TYPES = ["bucket", "project", "cloudsql", "bigquery_dataset"]
 
 # Supported resource and their required fields
 SUPPORTED_RESOURCE = {
-    'policy_violations': ['member', 'role'],
-    'buckets_acl_violations': ['bucket', 'entity', 'role'],
-    'cloudsql_acl_violations': ['instance_name'],
-    'bigquery_acl_violations': ['dataset_id']
+    "policy_violations": ["member", "role"],
+    "buckets_acl_violations": ["bucket", "entity", "role"],
+    "cloudsql_acl_violations": ["instance_name"],
+    "bigquery_acl_violations": ["dataset_id"],
 }
 
 
 class ForsetiSchema(Schema):
     """Schema for Forseti"""
+
     id = fields.Int(required=True)
     project_id = fields.Str(required=True)
     project_owner = fields.Str(required=True, allow_none=True)
@@ -52,15 +48,16 @@ class ForsetiSchema(Schema):
                              or resource_type or resource are not provided
         """
 
-        if 'resource' not in data.keys():
-            raise ValidationError('Forseti requires resource field', ['resource'])
+        if "resource" not in data.keys():
+            raise ValidationError("Forseti requires resource field", ["resource"])
 
-        if 'resource_type' not in data.keys():
-            raise ValidationError('Forseti requires resource_type field', ['resource_type'])
+        if "resource_type" not in data.keys():
+            raise ValidationError("Forseti requires resource_type field", ["resource_type"])
 
-        resource = data['resource']
+        resource = data["resource"]
 
         for field in SUPPORTED_RESOURCE.get(resource):
-            if field not in data['violation_data']:
-                raise ValidationError(f'{resource} resource requires member field {field} in violation_data',
-                                      ['violation_data'])
+            if field not in data["violation_data"]:
+                raise ValidationError(
+                    f"{resource} resource requires member field {field} in violation_data", ["violation_data"]
+                )

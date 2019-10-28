@@ -19,29 +19,19 @@ setuptools.setup(
     name="comet-common",
     version="2.1.0",
     url="https://github.com/spotify/comet-common",
-
     author="Spotify Platform Security",
     author_email="wasabi@spotify.com",
-
     description="Comet Distributed Security Notification Framework",
     long_description=open('README.md', 'r+', encoding='utf-8').read(),
-
     packages=['comet_common'],
-
-    install_requires=[
-        'comet-core~=2.1',
-        'google-cloud-pubsub~=0.37',
-        'marshmallow~=2.17'
-    ],
-
+    install_requires=['comet-core~=2.1', 'google-cloud-pubsub~=0.37', 'marshmallow~=2.17'],
     include_package_data=True,
-
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6'
-        'Programming Language :: Python :: 3.7'
-        'Programming Language :: Python :: 3.8'
+        "Development Status :: 5 - Production/Stable",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.7"
+        "Programming Language :: Python :: 3.8",
     ],
 )
