@@ -17,7 +17,7 @@ import setuptools
 
 setuptools.setup(
     name="comet-common",
-    version="2.1.0",
+    version="2.1.2",
     url="https://github.com/spotify/comet-common",
     author="Spotify Platform Security",
     author_email="wasabi@spotify.com",
