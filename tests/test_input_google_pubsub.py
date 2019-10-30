@@ -28,8 +28,8 @@ def test_input_google_pubsub_passingok():
         message_callback = Mock(return_value=True)
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
-        message.attributes.get.return_value = 'test_type'
-        message.data.decode.return_value = '{}'
+        message.attributes.get.return_value = "test_type"
+        message.data.decode.return_value = "{}"
 
         pubsubinput.callback(message)
 
@@ -45,13 +45,13 @@ def test_input_google_pubsub_failingtodecode():
         message_callback = Mock(return_value=False)
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
-        message.attributes.get.return_value = 'test_type'
+        message.attributes.get.return_value = "test_type"
         message.data.decode.side_effect = Exception("Mock Exception")
 
         with pytest.raises(Exception) as excinfo:
             pubsubinput.callback(message)
 
-        assert excinfo.value.args[0] == 'Mock Exception'
+        assert excinfo.value.args[0] == "Mock Exception"
         message.nack.assert_called_once()
 
 
@@ -62,8 +62,8 @@ def test_input_google_pubsub_nocallback():
         message_callback = Mock(return_value=False)
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
-        message.attributes.get.return_value = 'test_type'
-        message.data.decode.side_effect = '{}'
+        message.attributes.get.return_value = "test_type"
+        message.data.decode.side_effect = "{}"
 
         pubsubinput.callback(message)
 
@@ -86,11 +86,11 @@ def test_input_google_pubsub_invalid_message_drop():
     with patch("comet_common.comet_input_google_pubsub.pubsub.SubscriberClient") as mockpubsub:
         mockpubsub().subscribe.return_value = None
         message_callback = Mock()
-        message_callback.side_effect = CometAlertException('moo', drop=True)
+        message_callback.side_effect = CometAlertException("moo", drop=True)
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
-        message.attributes.get.return_value = 'test_type'
-        message.data.decode.return_value = {'subtype': ''}
+        message.attributes.get.return_value = "test_type"
+        message.data.decode.return_value = {"subtype": ""}
 
         pubsubinput.callback(message)
 
@@ -101,11 +101,11 @@ def test_input_google_pubsub_invalid_message_keep():
     with patch("comet_common.comet_input_google_pubsub.pubsub.SubscriberClient") as mockpubsub:
         mockpubsub().subscribe.return_value = None
         message_callback = Mock()
-        message_callback.side_effect = CometAlertException('mooh')
+        message_callback.side_effect = CometAlertException("mooh")
         pubsubinput = PubSubInput(message_callback=message_callback, subscription_name="something")
         message = Mock()
-        message.attributes.get.return_value = 'test_type'
-        message.data.decode.return_value = {'subtype': ''}
+        message.attributes.get.return_value = "test_type"
+        message.data.decode.return_value = {"subtype": ""}
 
         pubsubinput.callback(message)
 

@@ -16,17 +16,11 @@
 
 from comet_common.comet_parser_detectify import DetectifyDefinitionSchema, DetectifyPayloadSchema, DetectifySchema
 
-payload_DetectifyDefinitionSchema = dict(description='')
-payload_DetectifyPayloadSchema = dict(signature='',
-                                      url='',
-                                      title='',
-                                      found_at='',
-                                      report_token='',
-                                      definition=payload_DetectifyDefinitionSchema)
-payload_DetectifySchema = dict(scan_token='',
-                               profile_token='',
-                               domain='',
-                               payload=payload_DetectifyPayloadSchema)
+payload_DetectifyDefinitionSchema = dict(description="")
+payload_DetectifyPayloadSchema = dict(
+    signature="", url="", title="", found_at="", report_token="", definition=payload_DetectifyDefinitionSchema
+)
+payload_DetectifySchema = dict(scan_token="", profile_token="", domain="", payload=payload_DetectifyPayloadSchema)
 
 
 def test_DetectifyDefinitionSchema():
