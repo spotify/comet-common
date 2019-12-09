@@ -16,7 +16,7 @@ import setuptools
 
 setuptools.setup(
     name="comet-common",
-    version="2.1.3",
+    version="2.1.5",
     url="https://github.com/spotify/comet-common",
     author="Spotify Platform Security",
     author_email="wasabi@spotify.com",
@@ -24,7 +24,7 @@ setuptools.setup(
     long_description=open("README.md", "r+", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     packages=["comet_common"],
-    install_requires=["comet-core~=2.1", "google-cloud-pubsub~=0.37", "marshmallow~=2.17"],
+    install_requires=["comet-core >2,<3", "google-cloud-pubsub~=0.37", "marshmallow~=2.17"],
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
