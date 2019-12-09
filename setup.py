@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import setuptools
 
 setuptools.setup(
@@ -23,6 +22,7 @@ setuptools.setup(
     author_email="wasabi@spotify.com",
     description="Comet Distributed Security Notification Framework",
     long_description=open("README.md", "r+", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
     packages=["comet_common"],
     install_requires=["comet-core~=2.1", "google-cloud-pubsub~=0.37", "marshmallow~=2.17"],
     include_package_data=True,
