@@ -3,6 +3,9 @@
 .project
 .pydevproject
 
+# Pip
+pip-wheel-metadata/*
+
 # IntelliJ
 .idea
 
