@@ -46,4 +46,5 @@ class DetectifySchema(Schema):
     scan_token = fields.Str(required=True)
     profile_token = fields.Str(required=True)
     domain = fields.Str(required=True)
+    score = fields.Float(required=False)
     payload = fields.Nested(DetectifyPayloadSchema, required=True)

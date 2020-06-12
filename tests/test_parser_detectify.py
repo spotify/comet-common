@@ -21,6 +21,7 @@ payload_DetectifyPayloadSchema = dict(
     signature="", url="", title="", found_at="", report_token="", definition=payload_DetectifyDefinitionSchema
 )
 payload_DetectifySchema = dict(scan_token="", profile_token="", domain="", payload=payload_DetectifyPayloadSchema)
+payload_DetectifySchema_complete = {**payload_DetectifySchema, "score": 7.1}
 
 
 def test_DetectifyDefinitionSchema():
@@ -39,3 +40,5 @@ def test_DetectifySchema():
     assert DetectifySchema().validate(payload_DetectifySchema) == {}
     for k in payload_DetectifySchema:
         assert k in DetectifySchema().validate({})
+    assert DetectifySchema().validate(payload_DetectifySchema_complete) == {}
+    assert "score" not in DetectifySchema().validate({})
