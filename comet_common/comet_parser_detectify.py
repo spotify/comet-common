@@ -18,7 +18,7 @@ from marshmallow import fields, Schema
 
 
 class DetectifyDefinitionSchema(Schema):
-    """"detectify schema class"
+    """ "detectify schema class"
     Args:
         Schema (marshmallow.Schema): schema
     """

@@ -24,10 +24,10 @@ LOG = logging.getLogger(__name__)
 
 class PubSubInput(CometInput):
     """PubSub Input Gateway
-        Args:
-            message_callback (function): callback function
-            subscription_name (str): pubsub subscription name
-        """
+    Args:
+        message_callback (function): callback function
+        subscription_name (str): pubsub subscription name
+    """
 
     def __init__(self, message_callback, subscription_name):
         """Initialize a PubSubInput gateway object"""
