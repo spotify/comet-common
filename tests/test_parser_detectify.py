@@ -25,20 +25,20 @@ payload_DetectifySchema_complete = {**payload_DetectifySchema, "score": 7.1}
 
 
 def test_DetectifyDefinitionSchema():
-    assert DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema) == {}
+    assert DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema, **kwargs) == {}
     for k in payload_DetectifyDefinitionSchema:
-        assert k in DetectifyDefinitionSchema().validate({})
+        assert k in DetectifyDefinitionSchema().validate({}, **kwargs)
 
 
 def test_DetectifyPayloadSchema():
-    assert DetectifyPayloadSchema().validate(payload_DetectifyPayloadSchema) == {}
+    assert DetectifyPayloadSchema().validate(payload_DetectifyPayloadSchema, **kwargs) == {}
     for k in payload_DetectifyPayloadSchema:
-        assert k in DetectifyPayloadSchema().validate({})
+        assert k in DetectifyPayloadSchema().validate({}, **kwargs)
 
 
 def test_DetectifySchema():
-    assert DetectifySchema().validate(payload_DetectifySchema) == {}
+    assert DetectifySchema().validate(payload_DetectifySchema, **kwargs) == {}
     for k in payload_DetectifySchema:
-        assert k in DetectifySchema().validate({})
-    assert DetectifySchema().validate(payload_DetectifySchema_complete) == {}
-    assert "score" not in DetectifySchema().validate({})
+        assert k in DetectifySchema().validate({}, **kwargs)
+    assert DetectifySchema().validate(payload_DetectifySchema_complete, **kwargs) == {}
+    assert "score" not in DetectifySchema().validate({}, **kwargs)
