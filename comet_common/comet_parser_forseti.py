@@ -49,15 +49,13 @@ class ForsetiSchema(Schema):
         """
 
         if "resource" not in data.keys():
-            raise ValidationError("Forseti requires resource field", ["resource"])
+            raise ValidationError("Forseti requires resource field")
 
         if "resource_type" not in data.keys():
-            raise ValidationError("Forseti requires resource_type field", ["resource_type"])
+            raise ValidationError("Forseti requires resource_type field")
 
         resource = data["resource"]
 
         for field in SUPPORTED_RESOURCE.get(resource):
             if field not in data["violation_data"]:
-                raise ValidationError(
-                    f"{resource} resource requires member field {field} in violation_data", ["violation_data"]
-                )
+                raise ValidationError(f"{resource} resource requires member field {field} in violation_data")

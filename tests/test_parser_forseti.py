@@ -41,23 +41,16 @@ def test_ForsetiSchema_parsedok():
 
 def test_ForsetiSchema_fail():
     payload_ForsetiSchema = dict(_payload_ForsetiSchema)
-    try:
-        err = ForsetiSchema().validate(payload_ForsetiSchema)
-        print(err)
-    except ValidationError as err:
-        print(err.messages)
-        assert "Forseti requires resource field" in err.get("resource", [])
-        assert "resource" in err
-        assert "resource_type" in err
+    err = ForsetiSchema().validate(payload_ForsetiSchema)
+    assert "Field may not be null." in err.get("resource")
+    assert "Field may not be null." in err.get("resource_type")
+    assert "Forseti requires resource field" in err.get("_schema")
 
     payload_ForsetiSchema["resource"] = list(SUPPORTED_RESOURCE.keys())[0]
-    try:
-        err = ForsetiSchema().validate(payload_ForsetiSchema)
-    except ValidationError as err:
-        assert "Forseti requires resource_type field" in err.get("resource_type", [])
+    err = ForsetiSchema().validate(payload_ForsetiSchema)
+    assert "Field may not be null." in err.get("resource_type")
+    assert "Forseti requires resource_type field" in err.get("_schema")
 
     payload_ForsetiSchema["resource_type"] = SUPPORTED_RESOURCE_TYPES[0]
-    try:
-        err = ForsetiSchema().validate(payload_ForsetiSchema)
-    except ValidationError as err:
-        assert "violation_data" in err
+    err = ForsetiSchema().validate(payload_ForsetiSchema)
+    assert "policy_violations resource requires member field member in violation_data" in err.get("_schema")
