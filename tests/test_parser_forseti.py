@@ -16,7 +16,7 @@
 
 
 from comet_common.comet_parser_forseti import ForsetiSchema, SUPPORTED_RESOURCE_TYPES, SUPPORTED_RESOURCE
-
+from marshmallow import ValidationError
 
 _payload_ForsetiSchema = dict(
     id=0,
@@ -41,16 +41,23 @@ def test_ForsetiSchema_parsedok():
 
 def test_ForsetiSchema_fail():
     payload_ForsetiSchema = dict(_payload_ForsetiSchema)
-    err = ForsetiSchema().validate(payload_ForsetiSchema)
-    print(err)
-    assert "Forseti requires resource field" in err.get("resource", [])
-    assert "resource" in err
-    assert "resource_type" in err
+    try:
+        err = ForsetiSchema().validate(payload_ForsetiSchema)
+        print(err)
+    except ValidationError as err:
+        print(err.messages)
+        assert "Forseti requires resource field" in err.get("resource", [])
+        assert "resource" in err
+        assert "resource_type" in err
 
     payload_ForsetiSchema["resource"] = list(SUPPORTED_RESOURCE.keys())[0]
-    err = ForsetiSchema().validate(payload_ForsetiSchema)
-    assert "Forseti requires resource_type field" in err.get("resource_type", [])
+    try:
+        err = ForsetiSchema().validate(payload_ForsetiSchema)
+    except ValidationError as err:
+        assert "Forseti requires resource_type field" in err.get("resource_type", [])
 
     payload_ForsetiSchema["resource_type"] = SUPPORTED_RESOURCE_TYPES[0]
-    err = ForsetiSchema().validate(payload_ForsetiSchema)
-    assert "violation_data" in err
+    try:
+        err = ForsetiSchema().validate(payload_ForsetiSchema)
+    except ValidationError as err:
+        assert "violation_data" in err
