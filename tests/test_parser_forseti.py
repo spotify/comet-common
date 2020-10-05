@@ -44,13 +44,13 @@ def test_ForsetiSchema_fail():
     err = ForsetiSchema().validate(payload_ForsetiSchema)
     assert "Field may not be null." in err.get("resource")
     assert "Field may not be null." in err.get("resource_type")
-    assert "Forseti requires resource field" in err.get("_schema")
+    assert "Forseti requires resource field" in err.get("resource")
 
     payload_ForsetiSchema["resource"] = list(SUPPORTED_RESOURCE.keys())[0]
     err = ForsetiSchema().validate(payload_ForsetiSchema)
     assert "Field may not be null." in err.get("resource_type")
-    assert "Forseti requires resource_type field" in err.get("_schema")
+    assert "Forseti requires resource_type field" in err.get("resource_type")
 
     payload_ForsetiSchema["resource_type"] = SUPPORTED_RESOURCE_TYPES[0]
     err = ForsetiSchema().validate(payload_ForsetiSchema)
-    assert "policy_violations resource requires member field member in violation_data" in err.get("_schema")
+    assert "violation_data" in err
