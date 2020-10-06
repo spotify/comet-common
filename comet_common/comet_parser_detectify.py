@@ -17,13 +17,28 @@
 from marshmallow import fields, Schema
 
 
+class DetectifyReferenceSchema(Schema):
+    """ "detectify reference schema class"
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    link = fields.Str(required=False)
+    uuid = fields.Str(required=False)
+    name = fields.Str(required=False)
+    source = fields.Str(required=False)
+
+
 class DetectifyDefinitionSchema(Schema):
-    """ "detectify schema class"
+    """ "detectify definition schema class"
     Args:
         Schema (marshmallow.Schema): schema
     """
 
     description = fields.Str(required=True)
+    uuid = fields.Str(required=False)
+    risk = fields.Str(required=False)
+    references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
 
 
 class DetectifyPayloadSchema(Schema):
@@ -38,6 +53,9 @@ class DetectifyPayloadSchema(Schema):
     found_at = fields.Str(required=True)
     report_token = fields.Str(required=True)
     definition = fields.Nested(DetectifyDefinitionSchema, required=True)
+    uuid = fields.Str(required=False)
+    scan_profile_token = fields.Str(required=False)
+    timestamp = fields.Str(required=False)
 
 
 class DetectifySchema(Schema):

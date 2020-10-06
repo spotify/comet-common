@@ -16,7 +16,8 @@
 
 from comet_common.comet_parser_detectify import DetectifyDefinitionSchema, DetectifyPayloadSchema, DetectifySchema
 
-payload_DetectifyDefinitionSchema = dict(description="")
+payload_ReferenceSchema = [dict(uuid="", link="", name="", source="")]
+payload_DetectifyDefinitionSchema = dict(description="", references=payload_ReferenceSchema)
 payload_DetectifyPayloadSchema = dict(
     signature="", url="", title="", found_at="", report_token="", definition=payload_DetectifyDefinitionSchema
 )
@@ -25,9 +26,9 @@ payload_DetectifySchema_complete = {**payload_DetectifySchema, "score": 7.1}
 
 
 def test_DetectifyDefinitionSchema():
+    print(DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema))
     assert DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema) == {}
-    for k in payload_DetectifyDefinitionSchema:
-        assert k in DetectifyDefinitionSchema().validate({})
+    assert "description" in DetectifyDefinitionSchema().validate({})
 
 
 def test_DetectifyPayloadSchema():
@@ -40,5 +41,6 @@ def test_DetectifySchema():
     assert DetectifySchema().validate(payload_DetectifySchema) == {}
     for k in payload_DetectifySchema:
         assert k in DetectifySchema().validate({})
+    print(DetectifySchema().validate(payload_DetectifySchema_complete))
     assert DetectifySchema().validate(payload_DetectifySchema_complete) == {}
     assert "score" not in DetectifySchema().validate({})
