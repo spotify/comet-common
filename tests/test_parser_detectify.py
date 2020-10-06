@@ -26,7 +26,6 @@ payload_DetectifySchema_complete = {**payload_DetectifySchema, "score": 7.1}
 
 
 def test_DetectifyDefinitionSchema():
-    print(DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema))
     assert DetectifyDefinitionSchema().validate(payload_DetectifyDefinitionSchema) == {}
     assert "description" in DetectifyDefinitionSchema().validate({})
 
@@ -41,6 +40,5 @@ def test_DetectifySchema():
     assert DetectifySchema().validate(payload_DetectifySchema) == {}
     for k in payload_DetectifySchema:
         assert k in DetectifySchema().validate({})
-    print(DetectifySchema().validate(payload_DetectifySchema_complete))
     assert DetectifySchema().validate(payload_DetectifySchema_complete) == {}
     assert "score" not in DetectifySchema().validate({})
