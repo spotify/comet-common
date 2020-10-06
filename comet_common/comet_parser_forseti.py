@@ -39,7 +39,7 @@ class ForsetiSchema(Schema):
     violation_data = fields.Dict(required=True)
 
     @validates_schema
-    def validate_violation_data(self, data):  # pylint: disable=no-self-use
+    def validate_violation_data(self, data, **kwargs):  # pylint: disable=unused-argument,no-self-use,missing-param-doc
         """Validate that violation_data has the field we expect depending on the resource field.
         Args:
             data (dict): the data object
@@ -49,15 +49,15 @@ class ForsetiSchema(Schema):
         """
 
         if "resource" not in data.keys():
-            raise ValidationError("Forseti requires resource field", ["resource"])
+            raise ValidationError("Forseti requires resource field", "resource")
 
         if "resource_type" not in data.keys():
-            raise ValidationError("Forseti requires resource_type field", ["resource_type"])
+            raise ValidationError("Forseti requires resource_type field", "resource_type")
 
         resource = data["resource"]
 
         for field in SUPPORTED_RESOURCE.get(resource):
             if field not in data["violation_data"]:
                 raise ValidationError(
-                    f"{resource} resource requires member field {field} in violation_data", ["violation_data"]
+                    f"{resource} resource requires member field {field} in violation_data", "violation_data"
                 )
