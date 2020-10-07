@@ -20,9 +20,9 @@ from marshmallow import fields, Schema
 class DetectifySchema(Schema):
     """Schema for Detectify"""
 
-    scan_token = fields.Str(required=True)
-    profile_token = fields.Str(required=True)
     domain = fields.Str(required=True)
+    profile_token = fields.Str(required=True)
+    scan_token = fields.Str(required=True)
     score = fields.Float(required=False)
     payload = fields.Nested(DetectifyPayloadSchema, required=True)
 
@@ -33,15 +33,15 @@ class DetectifyPayloadSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
+    uuid = fields.Str(required=False)
+    report_token = fields.Str(required=True)
+    scan_profile_token = fields.Str(required=False)
     signature = fields.Str(required=True)
     url = fields.Str(required=True)
     title = fields.Str(required=True)
     found_at = fields.Str(required=True)
-    report_token = fields.Str(required=True)
-    definition = fields.Nested(DetectifyDefinitionSchema, required=True)
-    uuid = fields.Str(required=False)
-    scan_profile_token = fields.Str(required=False)
     timestamp = fields.Str(required=False)
+    definition = fields.Nested(DetectifyDefinitionSchema, required=True)
 
 
 class DetectifyDefinitionSchema(Schema):
@@ -50,8 +50,8 @@ class DetectifyDefinitionSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    description = fields.Str(required=True)
     uuid = fields.Str(required=False)
+    description = fields.Str(required=True)
     risk = fields.Str(required=False)
     references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
 
@@ -62,7 +62,7 @@ class DetectifyReferenceSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    link = fields.Str(required=False)
     uuid = fields.Str(required=False)
+    link = fields.Str(required=False)
     name = fields.Str(required=False)
     source = fields.Str(required=False)
