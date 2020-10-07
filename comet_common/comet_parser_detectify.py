@@ -17,28 +17,14 @@
 from marshmallow import fields, Schema
 
 
-class DetectifyReferenceSchema(Schema):
-    """ "detectify reference schema class"
-    Args:
-        Schema (marshmallow.Schema): schema
-    """
+class DetectifySchema(Schema):
+    """Schema for Detectify"""
 
-    link = fields.Str(required=False)
-    uuid = fields.Str(required=False)
-    name = fields.Str(required=False)
-    source = fields.Str(required=False)
-
-
-class DetectifyDefinitionSchema(Schema):
-    """ "detectify definition schema class"
-    Args:
-        Schema (marshmallow.Schema): schema
-    """
-
-    description = fields.Str(required=True)
-    uuid = fields.Str(required=False)
-    risk = fields.Str(required=False)
-    references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
+    scan_token = fields.Str(required=True)
+    profile_token = fields.Str(required=True)
+    domain = fields.Str(required=True)
+    score = fields.Float(required=False)
+    payload = fields.Nested(DetectifyPayloadSchema, required=True)
 
 
 class DetectifyPayloadSchema(Schema):
@@ -58,11 +44,25 @@ class DetectifyPayloadSchema(Schema):
     timestamp = fields.Str(required=False)
 
 
-class DetectifySchema(Schema):
-    """Schema for Detectify"""
+class DetectifyDefinitionSchema(Schema):
+    """ "detectify definition schema class"
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
 
-    scan_token = fields.Str(required=True)
-    profile_token = fields.Str(required=True)
-    domain = fields.Str(required=True)
-    score = fields.Float(required=False)
-    payload = fields.Nested(DetectifyPayloadSchema, required=True)
+    description = fields.Str(required=True)
+    uuid = fields.Str(required=False)
+    risk = fields.Str(required=False)
+    references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
+
+
+class DetectifyReferenceSchema(Schema):
+    """ "detectify reference schema class"
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    link = fields.Str(required=False)
+    uuid = fields.Str(required=False)
+    name = fields.Str(required=False)
+    source = fields.Str(required=False)
