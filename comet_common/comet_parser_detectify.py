@@ -23,7 +23,7 @@ class DetectifySchema(Schema):
     domain = fields.Str(required=True)
     profile_token = fields.Str(required=True)
     scan_token = fields.Str(required=True)
-    score = fields.Float(required=False)
+    score = fields.Float()
     payload = fields.Nested(DetectifyPayloadSchema, required=True)
 
 
@@ -33,14 +33,14 @@ class DetectifyPayloadSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    uuid = fields.Str(required=False)
+    uuid = fields.Str()
     report_token = fields.Str(required=True)
-    scan_profile_token = fields.Str(required=False)
+    scan_profile_token = fields.Str()
     signature = fields.Str(required=True)
     url = fields.Str(required=True)
     title = fields.Str(required=True)
     found_at = fields.Str(required=True)
-    timestamp = fields.Str(required=False)
+    timestamp = fields.Str()
     definition = fields.Nested(DetectifyDefinitionSchema, required=True)
 
 
@@ -50,10 +50,10 @@ class DetectifyDefinitionSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    uuid = fields.Str(required=False)
+    uuid = fields.Str()
     description = fields.Str(required=True)
-    risk = fields.Str(required=False)
-    references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
+    risk = fields.Str()
+    references = fields.Nested(DetectifyReferenceSchema(many=True))
 
 
 class DetectifyReferenceSchema(Schema):
@@ -62,7 +62,7 @@ class DetectifyReferenceSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    uuid = fields.Str(required=False)
-    link = fields.Str(required=False)
-    name = fields.Str(required=False)
-    source = fields.Str(required=False)
+    uuid = fields.Str()
+    link = fields.Str()
+    name = fields.Str()
+    source = fields.Str()
