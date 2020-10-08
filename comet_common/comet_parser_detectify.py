@@ -119,6 +119,28 @@ class DetectifyDefinitionSchema(Schema):
     references = fields.Nested(DetectifyReferenceSchema(many=True))
 
 
+class DetectifyPayloadDetailsSchema(Schema):
+    """DetectifyPayloadDetailsSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    name = fields.Str()
+    type_field = fields.Str(data_key="type")
+    uuid = fields.Str()
+    value = fields.Str()
+
+
+class DetectifyPayloadOwaspSchema(Schema):
+    """DetectifyPayloadOwaspSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    classification = fields.Str()
+    year = fields.Int()
+
+
 class DetectifyPayloadSchema(Schema):
     """DetectifyPayloadSchema schema class
     Args:
@@ -139,6 +161,8 @@ class DetectifyPayloadSchema(Schema):
     tags = fields.Nested(DetectifyPayloadTagsSchema(many=True))
     target = fields.Nested(DetectifyPayloadTargetSchema)
     highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
+    details = fields.Nested(DetectifyPayloadDetailsSchema(many=True)
+    owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
 
 
 class DetectifySchema(Schema):
