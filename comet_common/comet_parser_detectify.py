@@ -161,7 +161,7 @@ class DetectifyPayloadSchema(Schema):
     tags = fields.Nested(DetectifyPayloadTagsSchema(many=True))
     target = fields.Nested(DetectifyPayloadTargetSchema)
     highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
-    details = fields.Nested(DetectifyPayloadDetailsSchema(many=True)
+    details = fields.Nested(DetectifyPayloadDetailsSchema(many=True))
     owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
 
 
