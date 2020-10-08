@@ -148,7 +148,7 @@ class DetectifySchema(Schema):
     """
 
     domain = fields.Str(required=True)
-    domain_token = fields.Str()
+    domain_token = fields.Str(allow_none=True)
     profile_token = fields.Str(required=True)
     scan_token = fields.Str(required=True)
     score = fields.Float()
