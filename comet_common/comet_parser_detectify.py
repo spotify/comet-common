@@ -17,52 +17,164 @@
 from marshmallow import fields, Schema
 
 
+class DetectifyPayloadHighlightsSchema(Schema):
+    """DetectifyPayloadHighlightsSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    field = fields.Str()
+    offset = fields.Int()
+    length = fields.Int()
+
+
+class DetectifyPayloadTargetResponseheadersSchema(Schema):
+    """DetectifyPayloadTargetResponseheadersSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    name = fields.Str()
+    value = fields.Str()
+
+
+class DetectifyPayloadTargetRequestheadersSchema(Schema):
+    """DetectifyPayloadTargetRequestheadersSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    name = fields.Str()
+    value = fields.Str()
+
+
+class DetectifyPayloadTargetSchema(Schema):
+    """DetectifyPayloadTargetSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    type_field = fields.Str(data_key="type")
+    url = fields.Str()
+    request_method = fields.Str()
+    request_version = fields.Str()
+    request_headers = fields.Nested(DetectifyPayloadTargetRequestheadersSchema(many=True))
+    request_body = fields.Str()
+    request_body_base64 = fields.Bool()
+    response_status_code = fields.Int()
+    response_reason_phrase = fields.Str()
+    response_version = fields.Str()
+    response_headers = fields.Nested(DetectifyPayloadTargetResponseheadersSchema(many=True))
+    response_body = fields.Str()
+    response_body_base64 = fields.Bool()
+    response_encoding = fields.Str()
+
+
+class DetectifyPayloadTagsSchema(Schema):
+    """DetectifyPayloadTagsSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    type_field = fields.Str(data_key="type")
+    value = fields.Str()
+
+
+class DetectifyPayloadScoreSchema(Schema):
+    """DetectifyPayloadScoreSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    version = fields.Str()
+    score = fields.Float()
+    vector = fields.Str()
+
+
 class DetectifyReferenceSchema(Schema):
     """ "detectify reference schema class"
     Args:
         Schema (marshmallow.Schema): schema
     """
 
-    link = fields.Str(required=False)
-    uuid = fields.Str(required=False)
-    name = fields.Str(required=False)
-    source = fields.Str(required=False)
+    uuid = fields.Str()
+    link = fields.Str()
+    name = fields.Str()
+    source = fields.Str()
 
 
 class DetectifyDefinitionSchema(Schema):
-    """ "detectify definition schema class"
+    """DetectifyDefinitionSchema schema class
     Args:
         Schema (marshmallow.Schema): schema
     """
 
+    uuid = fields.Str()
     description = fields.Str(required=True)
-    uuid = fields.Str(required=False)
-    risk = fields.Str(required=False)
-    references = fields.Nested(DetectifyReferenceSchema(many=True), required=False)
+    risk = fields.Str()
+    references = fields.Nested(DetectifyReferenceSchema(many=True))
+
+
+class DetectifyPayloadDetailsSchema(Schema):
+    """DetectifyPayloadDetailsSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    name = fields.Str()
+    type_field = fields.Str(data_key="type")
+    uuid = fields.Str()
+    value = fields.Str()
+
+
+class DetectifyPayloadOwaspSchema(Schema):
+    """DetectifyPayloadOwaspSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    classification = fields.Str()
+    year = fields.Int()
 
 
 class DetectifyPayloadSchema(Schema):
-    """detectify payload schema class"
+    """DetectifyPayloadSchema schema class
     Args:
         Schema (marshmallow.Schema): schema
     """
 
+    uuid = fields.Str()
+    report_token = fields.Str(required=True)
+    scan_profile_token = fields.Str()
     signature = fields.Str(required=True)
     url = fields.Str(required=True)
     title = fields.Str(required=True)
     found_at = fields.Str(required=True)
-    report_token = fields.Str(required=True)
+    timestamp = fields.Str()
     definition = fields.Nested(DetectifyDefinitionSchema, required=True)
-    uuid = fields.Str(required=False)
-    scan_profile_token = fields.Str(required=False)
-    timestamp = fields.Str(required=False)
+    score = fields.Nested(DetectifyPayloadScoreSchema(many=True))
+    cwe = fields.Int()
+    tags = fields.Nested(DetectifyPayloadTagsSchema(many=True))
+    target = fields.Nested(DetectifyPayloadTargetSchema)
+    highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
+    details = fields.Nested(DetectifyPayloadDetailsSchema(many=True))
+    owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
 
 
 class DetectifySchema(Schema):
-    """Schema for Detectify"""
+    """DetectifySchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
 
-    scan_token = fields.Str(required=True)
-    profile_token = fields.Str(required=True)
     domain = fields.Str(required=True)
-    score = fields.Float(required=False)
+    domain_token = fields.Str(allow_none=True)
+    profile_token = fields.Str(required=True)
+    scan_token = fields.Str(required=True)
+    score = fields.Float()
+    severity_score = fields.Float()
     payload = fields.Nested(DetectifyPayloadSchema, required=True)
