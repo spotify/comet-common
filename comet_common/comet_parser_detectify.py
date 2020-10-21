@@ -163,6 +163,7 @@ class DetectifyPayloadSchema(Schema):
     highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
     details = fields.Nested(DetectifyPayloadDetailsSchema(many=True))
     owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
+    vulnerable_resources = fields.Str()
 
 
 class DetectifySchema(Schema):
