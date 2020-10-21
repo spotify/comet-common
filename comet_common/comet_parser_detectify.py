@@ -142,7 +142,7 @@ class DetectifyPayloadOwaspSchema(Schema):
 
 
 class DetectifyPayloadVulnerableVariableSchema(Schema):
-    """DetectifyPayloadSchema schema class
+    """DetectifyPayloadVulnerableVariableSchema schema class
     Args:
         Schema (marshmallow.Schema): schema
     """
@@ -150,6 +150,15 @@ class DetectifyPayloadVulnerableVariableSchema(Schema):
     uuid = fields.Str()
     name = fields.Str()
     method = fields.Str()
+
+
+class DetectifyPayloadVulnerableResourcesSchema(Schema):
+    """DetectifyPayloadVulnerableResourcesSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    vulnerable_variable = fields.Nested(DetectifyPayloadVulnerableVariableSchema)
 
 
 class DetectifyPayloadSchema(Schema):
@@ -174,7 +183,7 @@ class DetectifyPayloadSchema(Schema):
     highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
     details = fields.Nested(DetectifyPayloadDetailsSchema(many=True))
     owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
-    vulnerable_resources = fields.Nested(DetectifyPayloadVulnerableVariableSchema)
+    vulnerable_resources = fields.Nested(DetectifyPayloadVulnerableResourcesSchema)
 
 
 class DetectifySchema(Schema):
