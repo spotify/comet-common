@@ -141,6 +141,17 @@ class DetectifyPayloadOwaspSchema(Schema):
     year = fields.Int()
 
 
+class DetectifyPayloadVulnerableVariableSchema(Schema):
+    """DetectifyPayloadSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    name = fields.Str()
+    method = fields.Str()
+
+
 class DetectifyPayloadSchema(Schema):
     """DetectifyPayloadSchema schema class
     Args:
@@ -163,7 +174,7 @@ class DetectifyPayloadSchema(Schema):
     highlights = fields.Nested(DetectifyPayloadHighlightsSchema(many=True))
     details = fields.Nested(DetectifyPayloadDetailsSchema(many=True))
     owasp = fields.Nested(DetectifyPayloadOwaspSchema(many=True))
-    vulnerable_resources = fields.Str()
+    vulnerable_resources = fields.Nested(DetectifyPayloadVulnerableVariableSchema)
 
 
 class DetectifySchema(Schema):
