@@ -158,7 +158,7 @@ class DetectifyPayloadVulnerableResourcesSchema(Schema):
         Schema (marshmallow.Schema): schema
     """
 
-    vulnerable_variable = fields.Nested(DetectifyPayloadVulnerableVariableSchema(many=False))
+    vulnerable_variable = fields.Nested(DetectifyPayloadVulnerableVariableSchema)
 
 
 class DetectifyPayloadSchema(Schema):
