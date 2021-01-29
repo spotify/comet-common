@@ -152,12 +152,24 @@ class DetectifyPayloadVulnerableVariableSchema(Schema):
     method = fields.Str()
 
 
+class DetectifyPayloadHeaderSchema(Schema):
+    """DetectifyPayloadHeaderSchema schema class
+    Args:
+        Schema (marshmallow.Schema): schema
+    """
+
+    uuid = fields.Str()
+    name = fields.Str()
+    direction = fields.Str()
+    value = fields.Str()
 class DetectifyPayloadVulnerableResourcesSchema(Schema):
     """DetectifyPayloadVulnerableResourcesSchema schema class
     Args:
         Schema (marshmallow.Schema): schema
     """
 
+    expected_header = fields.Nested(DetectifyPayloadHeaderSchema(many=True))
+    vulnerable_header = fields.Nested(DetectifyPayloadHeaderSchema(many=True))
     vulnerable_variable = fields.Nested(DetectifyPayloadVulnerableVariableSchema(many=True))
 
 
