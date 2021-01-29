@@ -162,6 +162,8 @@ class DetectifyPayloadHeaderSchema(Schema):
     name = fields.Str()
     direction = fields.Str()
     value = fields.Str()
+
+
 class DetectifyPayloadVulnerableResourcesSchema(Schema):
     """DetectifyPayloadVulnerableResourcesSchema schema class
     Args:
