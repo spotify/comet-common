@@ -14,7 +14,7 @@
 
 """Representing and (de)serializing events."""
 
-from marshmallow import fields, Schema
+from marshmallow import Schema, fields
 
 
 class DetectifyPayloadHighlightsSchema(Schema):
@@ -149,6 +149,7 @@ class DetectifyPayloadVulnerableVariableSchema(Schema):
 
     uuid = fields.Str()
     name = fields.Str()
+    direction = fields.Str()
     method = fields.Str()
 
 
