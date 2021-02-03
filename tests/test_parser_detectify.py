@@ -14,8 +14,16 @@
 
 """Test comet_parser_detectify module"""
 
-from comet_common.comet_parser_detectify import DetectifyDefinitionSchema, DetectifyPayloadSchema, DetectifySchema
+from comet_common.comet_parser_detectify import (
+    DetectifyDefinitionSchema,
+    DetectifyPayloadSchema,
+    DetectifySchema,
+    DetectifyPayloadHeaderSchema,
+    DetectifyPayloadVulnerableResourcesSchema,
+)
 
+
+###Test ReferenceSchema
 payload_ReferenceSchema = [dict(uuid="", link="", name="", source="")]
 payload_DetectifyDefinitionSchema = dict(description="", references=payload_ReferenceSchema)
 payload_DetectifyPayloadSchema = dict(
@@ -23,6 +31,15 @@ payload_DetectifyPayloadSchema = dict(
 )
 payload_DetectifySchema = dict(scan_token="", profile_token="", domain="", payload=payload_DetectifyPayloadSchema)
 payload_DetectifySchema_complete = {**payload_DetectifySchema, "score": 7.1}
+
+payload_DetectifyExpectedHeaderSchema = [dict(direction="", name="", uuid="", value="")]
+payload_DetectifyVulnerableHeaderSchema = [dict(direction="", name="", uuid="")]
+payload_DetectifyVulnerableVariableSchema = [dict(uuid="", name="", method="")]
+payload_DetectifyVulnerableResourcesSchema = dict(
+    expected_header=payload_DetectifyExpectedHeaderSchema,
+    vulnerable_header=payload_DetectifyVulnerableHeaderSchema,
+    vulnerable_variable=payload_DetectifyVulnerableVariableSchema,
+)
 
 
 def test_DetectifyDefinitionSchema():
@@ -42,3 +59,7 @@ def test_DetectifySchema():
         assert k in DetectifySchema().validate({})
     assert DetectifySchema().validate(payload_DetectifySchema_complete) == {}
     assert "score" not in DetectifySchema().validate({})
+
+
+def test_DetectifyPayloadVulnerableResourcesSchema():
+    assert DetectifyPayloadVulnerableResourcesSchema().validate(payload_DetectifyVulnerableResourcesSchema) == {}
