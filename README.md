@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/spotify/comet-common.svg?token=VGx9AnFYBzGviKergtST&branch=master)](https://travis-ci.com/spotify/comet-common)
+[![Actions Status](https://github.com/spotify/comet-common/workflows/comet-common%20CI/badge.svg)](https://github.com/spotify/comet-common/actions)
 
 This is a Comet plugin.
 
