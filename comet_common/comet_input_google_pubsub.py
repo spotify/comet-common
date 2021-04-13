@@ -58,6 +58,7 @@ class PubSubInput(CometInput):
                 LOG.warning(
                     "Dropping invalid pubsub message",
                     extra={"source_type": source_type, "msg_dropped": message, "msg_data": message.data},
+                    exc_info=True,
                 )
                 message.ack()
                 return
