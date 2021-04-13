@@ -56,16 +56,24 @@ class PubSubInput(CometInput):
         except CometAlertException as e:
             if e.drop:
                 LOG.warning(
-                    "Dropping invalid pubsub message", extra={"source_type": source_type, "msg_dropped": message}
+                    "Dropping invalid pubsub message",
+                    extra={"source_type": source_type, "msg_dropped": message, "msg_data": message.data},
                 )
                 message.ack()
                 return
         except Exception as _:
             LOG.error("Message processing error")
-            LOG.warning("Refused (nacked) pubsub message.", extra={"source_type": source_type, "msg_nacked": message})
+            LOG.warning(
+                "Refused (nacked) pubsub message.",
+                extra={"source_type": source_type, "msg_nacked": message, "msg_data": message.data},
+                exc_info=True,
+            )
             message.nack()
             raise
-        LOG.warning("Refused (nacked) pubsub message.", extra={"source_type": source_type, "msg_nacked": message})
+        LOG.warning(
+            "Refused (nacked) pubsub message.",
+            extra={"source_type": source_type, "msg_nacked": message, "msg_data": message.data},
+        )
         message.nack()
 
     def stop(self):
