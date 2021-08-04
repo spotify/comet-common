@@ -55,8 +55,8 @@ class PubSubInput(CometInput):
                 return
         except CometAlertException as e:
             if e.drop:
-                LOG.warning(
-                    "Dropping invalid pubsub message",
+                LOG.warning(  # pylint: disable=logging-fstring-interpolation
+                    f"Dropping invalid pubsub message {message.ack_id}",
                     extra={"source_type": source_type, "msg_dropped": message, "msg_data": message.data},
                     exc_info=True,
                 )
@@ -64,15 +64,15 @@ class PubSubInput(CometInput):
                 return
         except Exception as _:
             LOG.error("Message processing error")
-            LOG.warning(
-                "Refused (nacked) pubsub message.",
+            LOG.warning(  # pylint: disable=logging-fstring-interpolation
+                f"Refused (nacked) pubsub message {message.ack_id}.",
                 extra={"source_type": source_type, "msg_nacked": message, "msg_data": message.data},
                 exc_info=True,
             )
             message.nack()
             raise
-        LOG.warning(
-            "Refused (nacked) pubsub message.",
+        LOG.warning(  # pylint: disable=logging-fstring-interpolation
+            f"Refused (nacked) pubsub message {message.ack_id}.",
             extra={"source_type": source_type, "msg_nacked": message, "msg_data": message.data},
         )
         message.nack()
